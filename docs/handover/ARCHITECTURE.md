@@ -101,6 +101,17 @@ Produces topology, inventories, URLs, versions, access procedures, configuration
 normal operations, upgrades, backups, recovery, limitations, costs, and manual
 commands. It must be useful after the originating agent session is gone.
 
+### Operator interface
+
+Exposes the same typed discovery, planning, approval, execution, observation, and
+recovery capabilities to humans, conventional automation, and agents. Operator
+identity and authority are explicit inputs to policy decisions. A conversation
+may supply intent, but it is never the durable execution or state protocol.
+
+Agent replacement should require loading the manifest, current inventory,
+observed state, journal, pending approvals, evidence, and handover—not replaying
+or summarizing the previous agent's transcript.
+
 ## Idempotency and unknown outcomes
 
 Every create operation needs a deployment identity and provider-side correlation
@@ -146,6 +157,21 @@ Agents consume structured schemas and results. Useful agent operations include:
 
 The orchestration engine—not the language model—owns state, limits, resource
 identity, idempotency, retries, and authorization enforcement.
+
+## Agent-managed self-hosting architecture
+
+Trails occupies the durable layer between user-owned infrastructure and
+replaceable operators. Provider accounts and deployed services remain usable if
+Trails is temporarily unavailable; Trails state remains usable if the preferred
+agent or model changes. Exportable manifests, inventories, journals, evidence,
+configuration references, and manual commands prevent either side from becoming
+an opaque managed-service dependency.
+
+Long-running operation should be event- and policy-driven rather than a permanent
+chat session. Schedulers, provider events, monitoring signals, and explicit human
+requests may create proposed operations. The policy engine decides whether each
+proposal is read-only, already authorized within a narrow standing policy, or
+requires a new plan-bound approval.
 
 ## Optional Gantry integration
 

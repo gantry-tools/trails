@@ -6,6 +6,15 @@ disposable environments easier to plan, provision, verify, operate, exercise,
 recover, destroy, and hand back to a human across virtual machines, Kubernetes,
 cloud services, and multiple providers.
 
+Its broader product model is **agent-managed self-hosting**:
+
+> **Your infrastructure, agent operated, human controlled.**
+
+Users retain ownership of their infrastructure, data, credentials, configuration,
+and provider relationships. Agents may perform routine operational work through
+Trails, but Trails keeps the durable plans, state, approvals, evidence, and manual
+procedures needed to understand or operate the system without that agent.
+
 Trails is intended to become a standalone member of the Gantry ecosystem:
 
 > **Works well by itself. Works even better with other Gantry tools.**
@@ -42,6 +51,8 @@ Read these documents before implementation:
 - [ROADMAP.md](ROADMAP.md) - staged product and engineering roadmap.
 - [GAME-PLAN.md](GAME-PLAN.md) - the first bounded execution campaign.
 - [Architecture](docs/handover/ARCHITECTURE.md) - proposed control-plane model.
+- [Agent-managed self-hosting](docs/handover/AGENT-MANAGED-SELF-HOSTING.md) - the
+  product model, ownership boundary, and continuity contract.
 - [Test networks](docs/handover/TEST-NETWORKS.md) - disposable environments,
   experiments, evidence, and cleanup.
 - [Safety](docs/handover/SAFETY.md) - credentials, cost, approval, and teardown.
@@ -100,6 +111,8 @@ optional.
    load balancers, backups, and DNS must be inventoried and accounted for.
 8. **Portability over lock-in.** Users should be able to inspect, reproduce,
    migrate, or manually operate what Trails creates.
+9. **Replaceable operators.** No agent, model, provider, hosted control plane, or
+   chat session may become the irreplaceable holder of operational knowledge.
 
 ## Non-goals for the first version
 

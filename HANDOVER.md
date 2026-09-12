@@ -12,6 +12,8 @@ Trails. Read this file, `README.md`, `ROADMAP.md`, `GAME-PLAN.md`, and the files
 - Intended role: provider-neutral infrastructure planning, operation, and
   disposable test-network orchestration with excellent manual, automated, and
   agent-operated workflows.
+- Product model: agent-managed self-hosting—user-owned infrastructure operated
+  with agent assistance under durable, human-controlled contracts.
 - First dogfood workload: a small Gantry topology on disposable infrastructure.
 - Generality test: the same core must deploy at least one unrelated workload
   without Gantry-specific logic.
@@ -83,6 +85,29 @@ Every supported operation should be possible through the same durable contract:
 
 An agent may improve usability and diagnosis, but no supported deployment may
 depend on unrecoverable facts held only in chat history.
+
+## Agent-managed self-hosting contract
+
+Trails should make owning infrastructure feel closer to using a managed platform
+without transferring ownership or control to Trails or an agent:
+
+> **Your infrastructure, agent operated, human controlled.**
+
+The user owns the provider accounts, resources, data, domains, credentials,
+configuration, state, and final decisions. An agent may plan, provision,
+configure, verify, monitor, update, diagnose, recover, destroy, and prepare
+handovers only through explicit Trails capabilities and authorization boundaries.
+
+The agent is an operator, not the source of truth. Trails must preserve enough
+structured state and documentation that a different agent, conventional
+automation, or a human can safely continue after the original agent, model,
+conversation, workstation, or vendor disappears. Changing agent or provider must
+not require rediscovering the deployment from prose.
+
+This is not permission for unattended production autonomy. Read-only observation
+and recommendations may be continuous; mutations remain policy-bound, scoped,
+journaled, and approved according to their class. See
+`docs/handover/AGENT-MANAGED-SELF-HOSTING.md`.
 
 ## State and artifact model
 
@@ -199,6 +224,8 @@ observe, update, failure, recovery, and teardown gates appropriate to its scope.
 ## Deeper handovers
 
 - `docs/handover/ARCHITECTURE.md` - core, adapters, state, and reconciliation.
+- `docs/handover/AGENT-MANAGED-SELF-HOSTING.md` - ownership, operator
+  replaceability, autonomy levels, and handover continuity.
 - `docs/handover/SAFETY.md` - credentials, budgets, approvals, and destruction.
 - `docs/handover/TEST-NETWORKS.md` - test topology, scenarios, evidence, expiry,
   and cleanup.

@@ -6,6 +6,11 @@ Trails aims to make independently operated infrastructure and realistic test
 networks feel as approachable as managed hosting without sacrificing ownership,
 inspectability, portability, or manual control.
 
+The product category is **agent-managed self-hosting**: infrastructure remains
+user-owned, agents perform approved operational work, and Trails supplies the
+durable control and evidence layer that keeps both humans and replacement agents
+able to continue.
+
 A user should be able to state a desired system and its constraints, inspect a
 resolved topology/security/cost plan, approve it, and receive a verified system
 plus a complete operational handover. The same contract should work when invoked
@@ -163,6 +168,19 @@ agent workflows. Agent convenience never substitutes for these contracts.
 Agents should be able to discover capabilities, generate manifests, explain
 plans, request bounded approvals, invoke stable commands, interpret structured
 results, diagnose failures, and create handovers. Prompt text is not an API.
+
+### Agent-managed self-hosting
+
+- Make ownership, operator identity, authority, and approval state explicit.
+- Support replaceable agents and models through stable schemas, commands, and
+  evidence rather than conversation-specific knowledge.
+- Provide selectable autonomy policy: observe, recommend, execute approved plans,
+  or perform narrowly pre-authorized routine operations.
+- Keep recurring maintenance, backup checks, certificate renewal, updates, drift
+  inspection, incident diagnosis, and recovery rehearsals visible and auditable.
+- Produce continuously useful human handovers, not only an export at deployment.
+- Test loss of the originating agent, workstation, and orchestration process as
+  operational continuity cases.
 
 ### Test-network experience
 

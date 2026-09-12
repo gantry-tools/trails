@@ -54,6 +54,9 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
   schema versions, and ownership metadata.
 - Use atomic local updates and crash-safe recovery.
 - Define locking and concurrent-operator behavior.
+- Model operator identity separately from agent/model/session identity.
+- Prove that replacing an agent or losing its transcript grants no authority and
+  loses no durable deployment knowledge.
 - Provide inspect, export, and redacted support bundles.
 
 ### Checkpoint 7 - Operation journal
@@ -69,6 +72,8 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
   rate limits, transient errors, permanent errors, and partial failure.
 - Track every simulated billable resource class.
 - Add deterministic clocks and failure injection.
+- Generate a continuation bundle that a fresh human or agent can use without the
+  originating conversation.
 - Simulate runner loss and automatic expiry without relying on wall-clock sleeps.
 
 ### Checkpoint 9 - Execution engine
@@ -170,6 +175,8 @@ than a one-off sequence embedded in an agent prompt.
   baseline, disrupt, verify recovery, collect evidence, destroy, and audit.
 - Assess whether Watchpost/Webfleet integration materially improves evidence while
   confirming that non-Gantry observers and checks remain supported.
+- Replace the operating agent mid-campaign and complete status, diagnosis, and
+  teardown solely from Trails state and the generated handover.
 - Decide whether to continue toward Kubernetes/AWS, revise the manifest, or keep
   Trails as a focused Gantry deployment harness.
 - Reconcile the handover and roadmap with evidence.

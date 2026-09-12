@@ -17,6 +17,23 @@ Treat these as distinct stages:
 Approval for one stage does not imply approval for another. Changed plans,
 accounts, targets, costs, or inventories invalidate earlier approval.
 
+## Agent authority
+
+Agent convenience does not expand authority. Every agent invocation has an
+authenticated operator identity, declared role, permitted targets, capability
+set, expiry, and approval context. Switching models, agents, interfaces, or
+sessions never carries implicit authorization forward.
+
+Standing authorization, if supported later, must be narrow and mechanically
+enforced—for example, restart one named service after a failed health check or
+renew a certificate inside a declared window. It needs explicit bounds, expiry,
+rate limits, revocation, notification, and journal entries. Ambiguous diagnosis,
+cost increases, topology changes, credential changes, destructive recovery, and
+unknown ownership stop for human review.
+
+No safety decision may depend solely on an agent's memory, confidence, prompt, or
+natural-language summary.
+
 ## Credential rules
 
 - Prefer short-lived session credentials and dedicated roles.
