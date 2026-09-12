@@ -1,9 +1,19 @@
 # Trails
 
-Trails is an experimental, provider-neutral infrastructure composition project.
-It is intended to make self-hosted systems easier to plan, provision, verify,
-operate, recover, and hand back to a human across virtual machines, Kubernetes,
+Trails is an experimental, provider-neutral infrastructure composition and
+test-network project. It is intended to make self-hosted systems and realistic
+disposable environments easier to plan, provision, verify, operate, exercise,
+recover, destroy, and hand back to a human across virtual machines, Kubernetes,
 cloud services, and multiple providers.
+
+Trails is intended to become a standalone member of the Gantry ecosystem:
+
+> **Works well by itself. Works even better with other Gantry tools.**
+
+It must remain useful with standard infrastructure, arbitrary applications, and
+non-Gantry monitoring or automation. Optional Gantry integrations should make
+observability, verification, development, and agent operation unusually good
+without becoming hidden requirements.
 
 The long-term interaction is simple:
 
@@ -32,6 +42,8 @@ Read these documents before implementation:
 - [ROADMAP.md](ROADMAP.md) - staged product and engineering roadmap.
 - [GAME-PLAN.md](GAME-PLAN.md) - the first bounded execution campaign.
 - [Architecture](docs/handover/ARCHITECTURE.md) - proposed control-plane model.
+- [Test networks](docs/handover/TEST-NETWORKS.md) - disposable environments,
+  experiments, evidence, and cleanup.
 - [Safety](docs/handover/SAFETY.md) - credentials, cost, approval, and teardown.
 - [Development](docs/handover/DEVELOPMENT.md) - checkpoint and evidence practice.
 
@@ -44,10 +56,30 @@ Trails may eventually coordinate:
 - Kubernetes clusters, including managed Kubernetes and lightweight k3s;
 - DNS, firewalls, private networks, load balancers, storage, and databases;
 - deployments spanning providers and failure domains;
+- disposable networks for integration, upgrade, recovery, and failure testing;
+- controlled latency, interruption, restart, loss, and version-skew scenarios;
 - configuration propagation, upgrades, backups, restore drills, and failover;
 - Gantry applications and unrelated user-defined workloads.
 
 This is a destination, not a current support claim.
+
+## Test networks
+
+One of Trails' central use cases is creating practical environments that are too
+awkward, costly, or inconsistent to maintain permanently. A declared experiment
+can provision its topology, deploy and seed the workload, run health and behavior
+checks, introduce bounded failures, gather evidence, and destroy the environment
+under a hard budget and lifetime.
+
+Candidate workloads include replicated APIs and databases, backup systems,
+monitoring agents, queues, service meshes, CI workers, multiplayer servers,
+rolling upgrades, disaster-recovery rehearsals, and multi-region applications.
+The feature is not Gantry-specific.
+
+With Gantry integrations, Watchpost can observe nodes, Watchpost Agent can expose
+host telemetry, Webfleet can exercise sites and APIs, Warden can provide a remote
+workspace, and Cortex can assist diagnosis. Every one of those integrations is
+optional.
 
 ## Core principles
 

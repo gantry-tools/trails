@@ -69,6 +69,7 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
   rate limits, transient errors, permanent errors, and partial failure.
 - Track every simulated billable resource class.
 - Add deterministic clocks and failure injection.
+- Simulate runner loss and automatic expiry without relying on wall-clock sleeps.
 
 ### Checkpoint 9 - Execution engine
 
@@ -84,6 +85,7 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
 - Destroy in dependency-safe order under a separate approval.
 - Verify that no simulated compute, disks, snapshots, addresses, load balancers,
   backups, DNS records, or network resources remain.
+- Prove cleanup still runs after deployment, verification, and scenario failures.
 
 ## Phase C - Manual host operation
 
@@ -123,6 +125,8 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
 - Keep Gantry-specific logic outside the orchestration core.
 - Document complete manual setup, configuration, pairing, verification, and
   removal alongside the Trails path.
+- Define the topology as an experiment with a hard TTL, cost ceiling, baseline,
+  evidence bundle, and post-run inventory.
 
 ### Checkpoint 16 - Akamai read-only adapter
 
@@ -137,6 +141,7 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
   environment.
 - Bootstrap and deploy the Gantry blueprint.
 - Verify pairing, monitoring, restart behavior, persistence, and external health.
+- Exercise one bounded node or service interruption and retain its timeline.
 - Destroy and independently confirm that no billable resources remain.
 
 ### Checkpoint 18 - Vultr adapter parity
@@ -153,11 +158,18 @@ declared tests pass. No checkpoint authorizes paid infrastructure by implication
 - Record achieved recovery point and recovery time rather than promising them.
 - Confirm teardown across both provider inventories.
 
+The exercise should be expressible as a reusable test-network scenario rather
+than a one-off sequence embedded in an agent prompt.
+
 ### Checkpoint 20 - First campaign assessment
 
 - Compare plan stability, manual parity, provider abstraction pressure, security,
   cost accuracy, failure recovery, and orphan-resource behavior.
 - Deploy one unrelated application without core Gantry conditionals.
+- Run a full unrelated test-network lifecycle: provision, deploy, seed, establish
+  baseline, disrupt, verify recovery, collect evidence, destroy, and audit.
+- Assess whether Watchpost/Webfleet integration materially improves evidence while
+  confirming that non-Gantry observers and checks remain supported.
 - Decide whether to continue toward Kubernetes/AWS, revise the manifest, or keep
   Trails as a focused Gantry deployment harness.
 - Reconcile the handover and roadmap with evidence.

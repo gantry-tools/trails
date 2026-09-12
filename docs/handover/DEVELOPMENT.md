@@ -60,6 +60,17 @@ Record exact versions, account/project class without secrets, regions, resources
 plan digest, commands, timing, costs, failures, verification, teardown, and final
 inventory. Never call an environment failure a pass.
 
+### Test-network scenarios
+
+- model scenario operations as typed plans rather than arbitrary remote commands;
+- establish and record a healthy baseline before disruption;
+- distinguish expected application failure from orchestration failure;
+- record monotonic event timing, observations, recovery, and unmet assertions;
+- exercise runner interruption and cleanup resumption in the fake provider first;
+- run evidence capture and teardown finalizers after every outcome;
+- independently refresh provider inventories after teardown;
+- retain the manifest and exact workload/scenario versions needed to reproduce.
+
 ## Adapter design
 
 - Keep provider SDK types behind adapter boundaries.
@@ -81,6 +92,10 @@ not leak special cases into provider adapters.
 The initial Gantry blueprint should remain small until its manual equivalent is
 documented and tested. An unrelated application blueprint is required before
 claiming the core is general.
+
+Gantry integrations should dogfood public extension points. Watchpost and
+Webfleet may provide richer observation and verification, but the same experiment
+must be capable of using ordinary commands, health checks, or unrelated tools.
 
 ## Performance
 

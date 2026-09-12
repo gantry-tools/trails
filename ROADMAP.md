@@ -2,9 +2,9 @@
 
 ## Destination
 
-Trails aims to make independently operated infrastructure feel as approachable
-as managed hosting without sacrificing ownership, inspectability, portability,
-or manual control.
+Trails aims to make independently operated infrastructure and realistic test
+networks feel as approachable as managed hosting without sacrificing ownership,
+inspectability, portability, or manual control.
 
 A user should be able to state a desired system and its constraints, inspect a
 resolved topology/security/cost plan, approve it, and receive a verified system
@@ -12,9 +12,15 @@ plus a complete operational handover. The same contract should work when invoked
 manually, through ordinary automation, or by an agent.
 
 This destination includes virtual machines, cloud services, Kubernetes, bare SSH
-hosts, and multi-provider systems. It does not justify claiming those surfaces
-before their adapters and failure modes have been exercised on real disposable
+hosts, multi-provider systems, and short-lived networks for integration, upgrade,
+failure, and recovery testing. It does not justify claiming those surfaces before
+their adapters and failure modes have been exercised on real disposable
 infrastructure.
+
+Trails is intended to be a standalone Gantry ecosystem project under the
+principle **works well by itself, works even better with other Gantry tools**.
+Gantry is its first demanding dogfood workload and integration family, not its
+only application model.
 
 ## Product milestones
 
@@ -66,7 +72,24 @@ campaigns with no orphaned billable resources.
 Exit condition: Trails provisions and hands over a useful Gantry network while
 every operation remains manually documented.
 
-### Milestone 4 - Multi-provider resilience
+### Milestone 4 - Disposable test networks
+
+- Define experiment manifests over ordinary deployment topology.
+- Add workload deployment, fixture/data seeding, baseline checks, scenario phases,
+  success criteria, evidence collection, and unconditional cleanup phases.
+- Support bounded restarts, process/node loss, network interruption, latency,
+  constrained resources, version skew, rolling upgrades, backup/restore, and
+  provider-loss simulations where the target permits them safely.
+- Add TTL enforcement, heartbeat/lease behavior, abandoned-run discovery, and
+  post-destruction billable-resource reconciliation.
+- Run the same scenario manually, through conventional automation, and through an
+  agent using the durable experiment contract.
+- Prove an unrelated distributed application without Gantry-specific core logic.
+
+Exit condition: Trails can create, exercise, evidence, and completely remove a
+useful multi-node environment, including after scenario or runner failure.
+
+### Milestone 5 - Multi-provider resilience
 
 - Add placement rules for provider, region, zone, and correlated failure domains.
 - Connect provider networks through explicit secure tunnels such as WireGuard.
@@ -78,7 +101,7 @@ every operation remains manually documented.
 Exit condition: a tested deployment survives the declared provider-loss model
 without relying on unrecorded agent knowledge.
 
-### Milestone 5 - Kubernetes backend
+### Milestone 6 - Kubernetes backend
 
 - Treat Kubernetes as a declarative backend rather than a fleet of SSH targets.
 - Support existing kubeconfig/context discovery with strict scope selection.
@@ -90,7 +113,7 @@ without relying on unrecorded agent knowledge.
 Exit condition: one Gantry workload and one unrelated workload pass repeatable
 deployment, update, rollback, and teardown in disposable clusters.
 
-### Milestone 6 - AWS and broader cloud services
+### Milestone 7 - AWS and broader cloud services
 
 - Add tightly scoped, short-lived IAM session operation.
 - Begin with a narrow EC2/VPC/security-group/storage subset.
@@ -102,7 +125,7 @@ deployment, update, rollback, and teardown in disposable clusters.
 Exit condition: each claimed AWS slice passes live tests without requiring broad
 account permissions or undocumented console intervention.
 
-### Milestone 7 - Reconciliation and operations
+### Milestone 8 - Reconciliation and operations
 
 - Detect drift between desired, resolved, and observed state.
 - Distinguish harmless, repairable, sensitive, and destructive drift.
@@ -114,7 +137,7 @@ account permissions or undocumented console intervention.
 Exit condition: Trails can maintain supported systems over time without becoming
 an unbounded autonomous production operator.
 
-### Milestone 8 - General product qualification
+### Milestone 9 - General product qualification
 
 - Deploy at least one unrelated real application without Gantry-specific core
   changes.
@@ -141,6 +164,13 @@ Agents should be able to discover capabilities, generate manifests, explain
 plans, request bounded approvals, invoke stable commands, interpret structured
 results, diagnose failures, and create handovers. Prompt text is not an API.
 
+### Test-network experience
+
+Experiments should be reproducible from a manifest and retained artifacts rather
+than a chat transcript. The same topology should support selectable scenarios,
+observers, traffic generators, evidence collectors, and cleanup policy. Scenario
+failure must not skip evidence capture or teardown.
+
 ### Security and governance
 
 Least privilege, short-lived credentials, allowlists, deny rules, secret
@@ -164,5 +194,6 @@ language.
 ## Current priority
 
 Do not start by supporting many providers. Complete Milestone 0, then prove one
-manual SSH path and one inexpensive two-node Gantry deployment. Reassess the
-abstraction before adding the second provider, Kubernetes, or AWS.
+manual SSH path and one inexpensive two-node Gantry deployment. Use it to prove
+the first complete disposable test-network lifecycle. Reassess the abstraction
+before adding the second provider, Kubernetes, or AWS.

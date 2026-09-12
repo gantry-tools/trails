@@ -100,3 +100,19 @@ whose identity, ownership, or data-protection status is uncertain.
 Use the fake provider first. The first authorized live campaign should use the
 smallest inexpensive disposable topology, a hard cost ceiling, non-production
 domains and data, and immediate post-run teardown verification.
+
+## Test-network disruption rules
+
+- Apply disruptive scenarios only to resources owned by the exact experiment.
+- Require a separate approved scenario plan for network partitions, service or
+  node termination, resource pressure, failover, restore, and destructive tests.
+- Respect provider acceptable-use rules; do not generate abusive public traffic,
+  uncontrolled denial of service, scanning, or attacks on third-party systems.
+- Bound traffic, duration, concurrency, latency, packet loss, CPU, memory, disk,
+  and restart counts in enforceable configuration.
+- Keep control access and cleanup paths independent from the failure being tested
+  where practical.
+- Treat loss of the experiment runner as a required cleanup/resume case.
+- Never reuse a production hostname, network, credential, data set, backup, or
+  account-wide resource as a disposable test target without an explicit later
+  production-testing contract.

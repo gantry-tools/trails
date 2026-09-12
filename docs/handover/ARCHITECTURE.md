@@ -84,6 +84,17 @@ Runs health, behavioral, topology, security, restart, backup, restore, failover,
 and external-reachability checks. Verification results are first-class evidence,
 not console prose.
 
+### Experiment controller
+
+Builds a disposable test-network lifecycle on the same planner, inventory,
+journal, adapters, and verification engine used for durable deployments. It owns
+phase transitions, baseline establishment, scenario scheduling, evidence capture,
+TTL/lease enforcement, cancellation, and cleanup-finalizer state.
+
+An experiment is not an unrestricted script. Each disruptive action must be a
+typed, capability-checked operation bounded to exact test resources. Scenario
+failure changes the result but must not bypass evidence capture or cleanup.
+
 ### Handover generator
 
 Produces topology, inventories, URLs, versions, access procedures, configuration,
@@ -135,3 +146,11 @@ Agents consume structured schemas and results. Useful agent operations include:
 
 The orchestration engine—not the language model—owns state, limits, resource
 identity, idempotency, retries, and authorization enforcement.
+
+## Optional Gantry integration
+
+Trails core remains independent. Gantry services attach at public integration
+points: Watchpost/Watchpost Agent as observers, Webfleet as an HTTP/API verifier,
+Warden as an optional workspace, Cortex as an optional operator, and other tools
+as application or report-building helpers. Equivalent non-Gantry components must
+remain possible.

@@ -9,8 +9,9 @@ Trails. Read this file, `README.md`, `ROADMAP.md`, `GAME-PLAN.md`, and the files
 - Product: Trails.
 - Stage: design and contract formation.
 - Repository state: documentation foundation only.
-- Intended role: provider-neutral infrastructure planning and operation with
-  excellent manual, automated, and agent-operated workflows.
+- Intended role: provider-neutral infrastructure planning, operation, and
+  disposable test-network orchestration with excellent manual, automated, and
+  agent-operated workflows.
 - First dogfood workload: a small Gantry topology on disposable infrastructure.
 - Generality test: the same core must deploy at least one unrelated workload
   without Gantry-specific logic.
@@ -30,6 +31,8 @@ Trails owns:
 - durable resource inventory and operation journal;
 - configuration distribution orchestration;
 - deployment, verification, drift inspection, recovery exercises, and teardown;
+- bounded test-network lifecycle, workload seeding, scenario execution, evidence
+  capture, expiry, and post-destruction resource accounting;
 - complete human-readable operational handovers.
 
 Trails does not own:
@@ -45,6 +48,27 @@ Trails does not own:
 
 Applications and adapters must expose their actual contracts. Trails composes
 them and retains evidence; it does not pretend that unlike systems are identical.
+
+## Standalone Gantry ecosystem position
+
+Trails follows the Gantry philosophy:
+
+> **Works well by itself. Works even better with other Gantry tools.**
+
+The standalone contract is non-negotiable. Trails must provision, exercise,
+verify, and hand over ordinary user workloads without requiring Gantry services.
+Gantry integrations add capabilities through public adapters and blueprints:
+
+- Watchpost observes service and network health;
+- Watchpost Agent supplies host telemetry;
+- Webfleet exercises HTTP sites and APIs from selected network positions;
+- Trestle may support deployed applications but is not Trails' state store;
+- Warden supplies an optional browser-based operational workspace;
+- Cortex supplies optional agent-assisted diagnosis and operation;
+- Nift and the language tools may build reports or deployment assets.
+
+No integration may silently become necessary for core planning, execution,
+state, verification, or recovery.
 
 ## Three equal operating paths
 
@@ -126,6 +150,22 @@ Keep Gantry-specific defaults and verification in a blueprint or integration
 package. Provider adapters and core planning must remain useful to unrelated
 applications.
 
+## Test-network contract
+
+Disposable test networks are a first-class product surface, not merely provider
+adapter tests. Their lifecycle is:
+
+```text
+declare experiment -> plan topology/cost/expiry -> approve -> provision
+-> configure/deploy/seed -> establish baseline -> run bounded scenarios
+-> collect evidence -> destroy -> refresh inventories -> report
+```
+
+Experiments must declare success criteria, maximum duration and cost, cleanup
+policy, protected resources, and allowed disruptions. A failed test is still a
+successful Trails operation when the failure is accurately captured and cleanup
+completes. See `docs/handover/TEST-NETWORKS.md`.
+
 ## Checkpoint standard
 
 Every implementation checkpoint must define:
@@ -160,6 +200,8 @@ observe, update, failure, recovery, and teardown gates appropriate to its scope.
 
 - `docs/handover/ARCHITECTURE.md` - core, adapters, state, and reconciliation.
 - `docs/handover/SAFETY.md` - credentials, budgets, approvals, and destruction.
+- `docs/handover/TEST-NETWORKS.md` - test topology, scenarios, evidence, expiry,
+  and cleanup.
 - `docs/handover/DEVELOPMENT.md` - implementation and evidence workflow.
 - `ROADMAP.md` - staged product direction.
 - `GAME-PLAN.md` - initial bounded checkpoints.
