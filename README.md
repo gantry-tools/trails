@@ -6,9 +6,7 @@ disposable environments easier to plan, provision, verify, operate, exercise,
 recover, destroy, and hand back to a human across virtual machines, Kubernetes,
 cloud services, and multiple providers.
 
-Its broader product model is **agent-managed self-hosting**:
-
-> **Your infrastructure, agent operated, human controlled.**
+Its core model is **contract-driven self-hosting and infrastructure composition**. `map.json` is the portable desired-state Trail Map shared by Trails and Gantry Atlas. AI assistance is optional: a human, Web UI, CLI, CI system, or agent can author or execute the same contract.
 
 Users retain ownership of their infrastructure, data, credentials, configuration,
 and provider relationships. Agents may perform routine operational work through
@@ -35,19 +33,16 @@ describe the desired system
 -> retain an auditable manual handover
 ```
 
-Agents should be excellent Trails operators, but agents are not the source of
-truth. Every deployment must remain understandable and operable through public
-manifests, commands, inventories, evidence, and recovery procedures.
+Agents should be excellent Trails operators, but agents are not the source of truth and are never required. Every deployment must remain understandable and operable through `map.json`, public commands, generated scripts, inventories, evidence, and recovery procedures.
 
 ## Project status
 
-Trails is currently a design-stage project. There is no released CLI, manifest
-schema, provider adapter, or compatibility promise yet. The initial work is to
+Trails is currently a design-stage project. There is no released CLI, frozen `map.json` schema version, provider adapter, or compatibility promise yet. The initial work is to
 freeze a narrow contract and prove it with one inexpensive Gantry deployment.
 
 Read these documents before implementation:
 
-- [HANDOVER.md](HANDOVER.md) - authority, boundaries, and development rules.
+- [Project handover](docs/handover/HANDOVER.md) - authority, boundaries, and development rules.
 - [ROADMAP.md](ROADMAP.md) - staged product and engineering roadmap.
 - [GAME-PLAN.md](GAME-PLAN.md) - the first bounded execution campaign.
 - [Architecture](docs/handover/ARCHITECTURE.md) - proposed control-plane model.
@@ -87,15 +82,14 @@ monitoring agents, queues, service meshes, CI workers, multiplayer servers,
 rolling upgrades, disaster-recovery rehearsals, and multi-region applications.
 The feature is not Gantry-specific.
 
-With Gantry integrations, Watchpost can observe nodes, Watchpost Agent can expose
+With Gantry integrations, Watchpost can observe hosts/waypoints, Watchpost Agent can expose
 host telemetry, Webfleet can exercise sites and APIs, Warden can provide a remote
 workspace, and Cortex can assist diagnosis. Every one of those integrations is
 optional.
 
 ## Core principles
 
-1. **Manual-first, agent-friendly.** An agent automates documented operations; it
-   never becomes the only entity that understands a deployment.
+1. **AI-optional, agent-friendly.** Web UI, CLI, generated scripts, and ordinary automation are complete paths; an agent may author or execute them but never becomes the only entity that understands a deployment.
 2. **Plan before mutation.** Resolve intent into an inspectable topology, action
    plan, security model, and price estimate before creating resources.
 3. **State outside chat.** Desired state, resolved resources, operation journals,
@@ -126,9 +120,10 @@ or promise automatic recovery before restore and failure drills prove it.
 The public interface is not frozen, but the first contract should remain small:
 
 ```sh
-trails validate deployment.yaml
-trails plan deployment.yaml
-trails apply deployment.yaml
+trails validate map.json
+trails plan map.json
+trails script map.json > provision.sh
+trails apply map.json
 trails status
 trails verify
 trails destroy

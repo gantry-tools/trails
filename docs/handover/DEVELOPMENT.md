@@ -22,7 +22,7 @@ define exact intent and safety boundary
 
 ### Pure tests
 
-- manifest parsing, validation, migrations, and diagnostics;
+- `map.json` parsing, validation, migrations, compatibility, and diagnostics;
 - capability matching and deterministic planning;
 - dependency graphs and cycle detection;
 - plan digests and approval invalidation;
@@ -69,7 +69,7 @@ inventory. Never call an environment failure a pass.
 - exercise runner interruption and cleanup resumption in the fake provider first;
 - run evidence capture and teardown finalizers after every outcome;
 - independently refresh provider inventories after teardown;
-- retain the manifest and exact workload/scenario versions needed to reproduce.
+- retain `map.json` and the exact workload/scenario versions needed to reproduce.
 
 ## Adapter design
 

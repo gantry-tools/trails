@@ -1,6 +1,6 @@
 # Agent-managed self-hosting
 
-Trails is intended to make self-hosting feel closer to managed hosting while
+Trails is intended to make self-hosting feel closer to managed hosting while keeping AI assistance optional and
 preserving the reason to self-host in the first place:
 
 > **Your infrastructure, agent operated, human controlled.**
@@ -9,6 +9,11 @@ The user keeps ownership of infrastructure, data, credentials, configuration,
 domains, provider accounts, and operational decisions. Trails makes agents useful
 operators of that infrastructure without making an agent, model, conversation,
 or Trails-hosted service the only place the system can be understood.
+
+This is an optional operating mode, not the base dependency model. A user must be able
+to author/review `map.json`, generate deterministic scripts, execute them manually or
+through CI, verify the result, and tear it down without an AI system. Agent operation
+composes around those same public contracts.
 
 ## What changes from traditional self-hosting
 
@@ -42,7 +47,7 @@ not broaden authorization because an agent believes a change is helpful.
 Agents are interchangeable operators, not custodians of hidden state. A new
 human, agent, model, or automation system should be able to continue using:
 
-- authored manifests and immutable resolved plans;
+- authored `map.json` contracts and immutable resolved plans;
 - current resource inventory and observed state;
 - operation journal and pending approval state;
 - secret references and access procedures, without exposed secret values;

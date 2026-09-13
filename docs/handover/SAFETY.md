@@ -40,7 +40,7 @@ natural-language summary.
 - Use least privilege and resource-tag conditions where providers support them.
 - Restrict accounts, projects, regions, services, networks, and mutation classes.
 - Keep secret references in state; never store raw credentials in authored
-  manifests, logs, evidence, support bundles, or agent transcripts.
+  `map.json`, generated scripts, logs, evidence, support bundles, or agent transcripts.
 - Generate unique short-lived SSH credentials and verify host keys.
 - Rotate or revoke bootstrap credentials after commissioning.
 - Never repurpose discovered credentials for a different provider or deployment.

@@ -6,15 +6,17 @@ Trails aims to make independently operated infrastructure and realistic test
 networks feel as approachable as managed hosting without sacrificing ownership,
 inspectability, portability, or manual control.
 
-The product category is **agent-managed self-hosting**: infrastructure remains
-user-owned, agents perform approved operational work, and Trails supplies the
-durable control and evidence layer that keeps both humans and replacement agents
-able to continue.
+The product category is **contract-driven self-hosting and infrastructure
+composition**: infrastructure remains user-owned, `map.json` defines desired state,
+and Trails supplies the planning, generation, control, and evidence layer. Agents may
+assist or execute approved work, but AI is optional and must never be required for a
+supported path.
 
-A user should be able to state a desired system and its constraints, inspect a
-resolved topology/security/cost plan, approve it, and receive a verified system
-plus a complete operational handover. The same contract should work when invoked
-manually, through ordinary automation, or by an agent.
+A user should be able to author or import `map.json`, inspect the Trail Map and a
+resolved topology/security/cost plan, approve bounded changes, generate deterministic
+scripts, and receive a verified system plus a complete operational handover. The same
+contract must work from the Web UI, CLI, scripts/CI, ordinary automation, or an
+optional agent.
 
 This destination includes virtual machines, cloud services, Kubernetes, bare SSH
 hosts, multi-provider systems, and short-lived networks for integration, upgrade,
@@ -27,14 +29,29 @@ principle **works well by itself, works even better with other Gantry tools**.
 Gantry is its first demanding dogfood workload and integration family, not its
 only application model.
 
+
+## Shared Trail Map contract
+
+`map.json` is the canonical desired-state contract for both Trails and Gantry Atlas.
+It represents an infrastructure graph using stable **waypoints**, **connections**, and
+**trails**. Trail endpoints are **trailheads**; route branching/convergence points are
+contextual **junctions**; notable waypoints may be marked as **landmarks**. Connections
+may be directed or undirected.
+
+Trails realizes the desired map. Atlas observes the running estate and reconciles it
+against the same map. Observed state may be exported separately (for example
+`map.state.json`), but must never blur the invariant `map.json = intent`. The shared
+schema/parser/types should ultimately live in Gantry Core so neither product forks the
+contract.
+
 ## Product milestones
 
 ### Milestone 0 - Contract and local planning foundation
 
 - Decide implementation language and supported platforms.
-- Freeze an experimental manifest schema and explicit versioning policy.
+- Freeze experimental `gantry.map/v1` JSON Schema and explicit compatibility policy.
 - Implement validation, normalization, stable plan output, and useful errors.
-- Model dependencies, placement, costs, expiry, approvals, and capabilities.
+- Model waypoints, connections, trails, lifecycle ownership, landmarks, dependencies, placement, costs, expiry, approvals, and capabilities.
 - Establish durable local state, inventory, journals, and evidence formats.
 - Build a deterministic fake provider and failure-injection harness.
 - Prove that planning and dry-run perform no external mutations.
@@ -48,7 +65,7 @@ reviewable plan, and interrupted fake-provider operations can resume safely.
 - Verify host keys and use short-lived deployment credentials.
 - Bootstrap users, directories, services, firewalls, and health checks.
 - Introduce versioned configuration bundles with validate/diff/apply/rollback.
-- Keep configuration, secrets, node identity, runtime state, and data separate.
+- Keep configuration, secrets, waypoint/host identity, runtime state, and data separate.
 - Produce a complete manual handover and uninstall procedure.
 
 Exit condition: a user can reproduce and operate the deployment without an agent.
@@ -82,7 +99,7 @@ every operation remains manually documented.
 - Define experiment manifests over ordinary deployment topology.
 - Add workload deployment, fixture/data seeding, baseline checks, scenario phases,
   success criteria, evidence collection, and unconditional cleanup phases.
-- Support bounded restarts, process/node loss, network interruption, latency,
+- Support bounded restarts, process/host loss, network interruption, latency,
   constrained resources, version skew, rolling upgrades, backup/restore, and
   provider-loss simulations where the target permits them safely.
 - Add TTL enforcement, heartbeat/lease behavior, abandoned-run discovery, and
@@ -92,7 +109,7 @@ every operation remains manually documented.
 - Prove an unrelated distributed application without Gantry-specific core logic.
 
 Exit condition: Trails can create, exercise, evidence, and completely remove a
-useful multi-node environment, including after scenario or runner failure.
+useful multi-waypoint/multi-host environment, including after scenario or runner failure.
 
 ### Milestone 5 - Multi-provider resilience
 
@@ -148,7 +165,7 @@ an unbounded autonomous production operator.
   changes.
 - Test Linux architectures, supported providers, Kubernetes variants, and CLI
   platforms within an explicit matrix.
-- Fuzz manifests and provider responses; run sanitizers where applicable.
+- Fuzz `map.json` documents and provider responses; run sanitizers where applicable.
 - Validate large inventories, concurrency, rate limits, and API version changes.
 - Produce reproducible packages, migrations, compatibility policy, and releases.
 
@@ -165,9 +182,7 @@ agent workflows. Agent convenience never substitutes for these contracts.
 
 ### Agent experience
 
-Agents should be able to discover capabilities, generate manifests, explain
-plans, request bounded approvals, invoke stable commands, interpret structured
-results, diagnose failures, and create handovers. Prompt text is not an API.
+Agents should be able to discover capabilities, generate valid `map.json`, explain plans, request bounded approvals, invoke stable commands or approved scripts, interpret structured results, diagnose failures, and create handovers. Prompt text is not an API, and every supported workflow must also work without an agent.
 
 ### Agent-managed self-hosting
 
@@ -184,7 +199,7 @@ results, diagnose failures, and create handovers. Prompt text is not an API.
 
 ### Test-network experience
 
-Experiments should be reproducible from a manifest and retained artifacts rather
+Experiments should be reproducible from `map.json` plus retained artifacts rather
 than a chat transcript. The same topology should support selectable scenarios,
 observers, traffic generators, evidence collectors, and cleanup policy. Scenario
 failure must not skip evidence capture or teardown.

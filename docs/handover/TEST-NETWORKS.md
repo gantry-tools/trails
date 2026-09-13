@@ -1,7 +1,7 @@
 # Disposable test networks
 
 Disposable test networks are a central Trails product use case. They let users
-exercise realistic multi-node applications without maintaining a permanent lab or
+exercise realistic multi-host and multi-waypoint applications without maintaining a permanent lab or
 manually repeating provider, SSH, Kubernetes, deployment, observation, and
 cleanup work.
 
@@ -39,7 +39,13 @@ Provisioning success is not the experiment result. The result combines workload
 assertions, scenario observations, recovery behavior, evidence integrity, and
 cleanup reconciliation.
 
-## Manifest concepts
+## `map.json` experiment concepts
+
+Test-network topology must use the same `map.json` graph contract as ordinary Trails
+deployments. Experiments add scenario/evidence/lifetime policy around that map rather
+than inventing a second topology language. This keeps the same waypoints, connections,
+trails, landmarks, and stable identities usable by Atlas when an experiment is live.
+
 
 An experiment should extend a normal deployment with:
 
@@ -62,7 +68,7 @@ The stable schema must distinguish a desired outcome from an observed result.
 Useful bounded scenarios include:
 
 - process crash and service restart;
-- node reboot, replacement, or loss;
+- host/waypoint reboot, replacement, or loss;
 - connection refusal, DNS failure, and dependency unavailability;
 - network latency, jitter, bounded packet loss, and partitions;
 - CPU, memory, disk-space, or file-descriptor pressure;
@@ -139,7 +145,7 @@ intentional, protected, documented, and costed.
 
 A redacted experiment bundle should contain:
 
-- authored manifest and resolved plan;
+- authored `map.json` and resolved plan;
 - plan and approval digests;
 - exact Trails, adapter, blueprint, workload, and scenario versions;
 - provider/region/resource summary and costs;

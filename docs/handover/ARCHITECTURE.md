@@ -6,7 +6,7 @@ It is not an implemented-system description.
 ## Control flow
 
 ```text
-authored manifest
+authored `map.json`
   -> schema validation and normalization
   -> read-only capability discovery
   -> placement and dependency resolution
@@ -23,7 +23,7 @@ bounded operations; they must not silently expand user intent.
 
 ## Proposed components
 
-### Manifest frontend
+### Trail Map frontend
 
 Owns schema versions, source locations, canonical representation, validation,
 defaults, provider-specific extensions, and diagnostics. Unknown behavior should
@@ -48,7 +48,7 @@ target identities.
 
 ### State store
 
-Persists manifests, plans, inventory, observed state, locks, migrations, and
+Persists `map.json`, plans, inventory, observed state, locks, migrations, and
 evidence references. Local state is the first target. Remote collaboration and
 backends are later decisions.
 
@@ -108,7 +108,7 @@ recovery capabilities to humans, conventional automation, and agents. Operator
 identity and authority are explicit inputs to policy decisions. A conversation
 may supply intent, but it is never the durable execution or state protocol.
 
-Agent replacement should require loading the manifest, current inventory,
+Agent replacement should require loading `map.json`, current inventory,
 observed state, journal, pending approvals, evidence, and handover—not replaying
 or summarizing the previous agent's transcript.
 

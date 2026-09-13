@@ -12,14 +12,52 @@ Trails. Read this file, `README.md`, `ROADMAP.md`, `GAME-PLAN.md`, and the files
 - Intended role: provider-neutral infrastructure planning, operation, and
   disposable test-network orchestration with excellent manual, automated, and
   agent-operated workflows.
-- Product model: agent-managed self-hosting—user-owned infrastructure operated
-  with agent assistance under durable, human-controlled contracts.
+- Product model: contract-driven self-hosting and infrastructure composition. AI/agents are optional authors/operators, never a requirement; user-owned infrastructure remains controlled through durable human-readable contracts.
 - First dogfood workload: a small Gantry topology on disposable infrastructure.
 - Generality test: the same core must deploy at least one unrelated workload
   without Gantry-specific logic.
 
-No implementation language, manifest version, state format, provider, CLI syntax,
-or release schedule is settled merely because it appears as an example.
+No implementation language, state format, provider, CLI syntax, or release schedule is settled merely because it appears as an example. The filename **`map.json`** and its role as the shared desired-state Trails/Atlas contract are settled product direction; the first schema version is not yet frozen.
+
+
+## `map.json` contract
+
+`map.json` is the canonical desired-state infrastructure graph and the shared public
+contract between Trails and Gantry Atlas. It is not a UI export and not an
+agent-specific interchange format. The Web UI, CLI, generated scripts, conventional
+automation, agents, and Atlas must all be able to consume the same contract.
+
+Core invariant:
+
+```text
+map.json = intent
+```
+
+Trails validates, plans, provisions, configures, verifies, and tears down reality
+against that intent. Atlas discovers and visualizes the running estate and compares
+observed reality against the same map. Observed/runtime information belongs in
+separate compatible state/evidence, not in fields that change the meaning of
+`map.json`.
+
+The graph vocabulary is:
+
+- **Trail Map** - the complete desired graph represented by `map.json`;
+- **Waypoint** - any vertex/entity in the graph;
+- **Connection** - a directed or undirected relationship/edge between waypoints;
+- **Trail** - a meaningful path or subgraph;
+- **Trailhead** - an endpoint of a particular trail;
+- **Junction** - a contextual waypoint where routes meet, branch, converge, or
+  diverge;
+- **Landmark** - a notable waypoint, persisted as descriptive metadata.
+
+Trailhead and junction are normally derived relative to a trail. Landmark is an
+intrinsic annotation and may coexist with either role. Internally graph code may use
+`node`, `edge`, and `path`; public schema/UI terminology should prefer the domain
+terms above. Stable IDs must allow Trails and Atlas to refer to the same waypoint or
+connection without translation.
+
+The shared map schema/parser/types should be owned neutrally (preferably Gantry Core)
+rather than duplicated or made authoritative by either Trails or Atlas.
 
 ## Product boundary
 
@@ -72,18 +110,20 @@ Gantry integrations add capabilities through public adapters and blueprints:
 No integration may silently become necessary for core planning, execution,
 state, verification, or recovery.
 
-## Three equal operating paths
+## AI-optional operating paths
 
-Every supported operation should be possible through the same durable contract:
+Every supported operation should compose through the same durable contract. AI is
+never required. Supported paths include, but are not limited to:
 
-1. **Manual:** documented commands, manifests, configuration bundles, join and
-   revoke procedures, backup/restore steps, and diagnostic output.
-2. **Conventional automation:** scripts, CI, configuration-management tools, or
-   external infrastructure-as-code systems consuming stable machine interfaces.
-3. **Agent operation:** an agent proposes, invokes, observes, verifies, and
-   explains those same operations under explicit authorization.
+```text
+Web UI -> map.json -> generate script -> human/CI runs script
+Web UI -> map.json -> generate script + prompt -> agent runs approved script
+Describe -> agent -> map.json -> Web UI review -> script -> human runs it
+Hand-written map.json -> validate -> plan -> script -> conventional automation
+```
 
-An agent may improve usability and diagnosis, but no supported deployment may
+Manual use, conventional automation, and agent operation are peers. An agent may
+improve authoring, usability, diagnosis, or execution, but no supported deployment may
 depend on unrecoverable facts held only in chat history.
 
 ## Agent-managed self-hosting contract
@@ -113,7 +153,7 @@ journaled, and approved according to their class. See
 
 The design must distinguish:
 
-- **desired state:** user-authored intent and constraints;
+- **desired state:** `map.json`, containing the user-authored Trail Map and constraints;
 - **resolved plan:** exact provider choices, resources, operations, dependencies,
   estimated costs, and approval scope;
 - **resource inventory:** provider IDs, regions, roles, ownership, expiry, and
@@ -125,7 +165,7 @@ The design must distinguish:
 - **evidence:** health, behavioral, recovery, and teardown results;
 - **handover:** human-readable topology, access, maintenance, and recovery guide.
 
-Configuration, secrets, runtime state, database state, and node identity are
+Configuration, secrets, runtime state, database state, and waypoint/host identity are
 different classes of data. Do not implement configuration propagation by copying
 an entire application data directory between machines.
 
@@ -155,8 +195,8 @@ unknown ownership, or uncertain resource identity.
 The expected high-level pipeline is:
 
 ```text
-intent -> validate -> discover capabilities -> resolve plan -> approve
-       -> execute adapters -> observe -> verify -> reconcile -> hand over
+map.json -> validate -> discover capabilities -> resolve plan -> approve
+         -> generate/execute -> observe -> verify -> reconcile -> hand over
 ```
 
 Provider adapters translate resolved operations; they do not independently infer
@@ -218,7 +258,7 @@ observe, update, failure, recovery, and teardown gates appropriate to its scope.
 - Do not provision paid resources, alter DNS, access external hosts, push, tag,
   release, publish, or destroy remote resources without explicit authorization.
 - A checkpoint commit does not imply a release or compatibility promise.
-- Public claims must identify the manifest/schema version, adapter versions,
+- Public claims must identify the `map.json` schema version, adapter versions,
   tested provider/region, workload, and evidence boundary.
 
 ## Deeper handovers
